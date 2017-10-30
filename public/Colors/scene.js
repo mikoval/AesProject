@@ -8,6 +8,7 @@ function initScene(){
 	const NEAR = 0.01;
 	const FAR = 100000;
 	size = 2;
+	opacity = 0.3;
 	SIZE = 100;
 	obj = "sphere";
 	numPoints = SIZE*SIZE;
@@ -76,6 +77,7 @@ function initTextures(){
 	textures.push(bunnyTexture); 
 	textures.push(monkeyTexture);
 	textures.push(statueTexture);
+	console.log(opacity);
 
 	var geo = createLookupGeometry( SIZE );
 
@@ -84,10 +86,14 @@ function initTextures(){
         uniforms: {
           t_pos: { type: "t", value: sphereTexture },
           res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
-          size: {type:"f", value: size}
+          size: {type:"f", value: size},
+          opacity: {type:"f", value: opacity},
         },
         vertexShader: shaders.vs.lookup,
         fragmentShader: shaders.fs.lookup,
+        blending: THREE.AdditiveBlending,
+  		transparent: true,
+  		
 
       });
       

@@ -1,5 +1,5 @@
 function createSphere(){
-	rebuildScene();
+	//rebuildScene();
 	
 
 	const RADIUS = 50;
@@ -17,13 +17,13 @@ function createSphere(){
 	    RINGS);
 
 
-	createParticles(sphereGeo);
+	createParticles(sphereGeo, sphereTexture);
 
 
 
 }
 function createCube(){
-	rebuildScene();
+	//rebuildScene();
 	
 
 
@@ -36,13 +36,13 @@ function createCube(){
 
 
 
-	createParticles(cube);
+	createParticles(cube, cubeTexture);
 
 
 
 }
 function createTorus(){
-	rebuildScene();
+
 	
 
 
@@ -55,12 +55,11 @@ function createTorus(){
 
 
 
-	createParticles(torus);
+	createParticles(torus, torusTexture);
 
 	
 }
 function createBunny(){
-		rebuildScene();
 	
 		var loader = new THREE.OBJLoader();
 
@@ -79,12 +78,11 @@ function createBunny(){
 					geometry.vertices[i].z *= 40;
 				}
 				
-				createParticles(geometry);
+				createParticles(geometry, bunnyTexture);
 			}
 		);
 }
 function createMonkey(){
-	rebuildScene();
 	
 		var loader = new THREE.OBJLoader();
 
@@ -105,12 +103,11 @@ function createMonkey(){
 					geometry.vertices[i].z *= 40;
 				}
 				
-				createParticles(geometry);
+				createParticles(geometry, monkeyTexture);
 			}
 		);
 }
 function createStatue(){
-	rebuildScene();
 	
 		var loader = new THREE.OBJLoader();
 
@@ -132,19 +129,23 @@ function createStatue(){
 					geometry.vertices[i].y -=30;
 				}
 				
-				createParticles(geometry);
+				createParticles(geometry, statueTexture);
 			}
 		);
 
 }
-function createParticles(geo){
+function createParticles(geo, texture){
 
-	//This will add a starfield to the background of a scene
+
+
+
 	var particleGeometry = new THREE.Geometry();
+
+
 
 	
 
-	var randomPoints = THREE.GeometryUtils.randomPointsInGeometry( geo, numPoints)
+	var randomPoints = THREE.GeometryUtils.randomPointsInGeometry( geo, SIZE*SIZE)
 
 	particleGeometry.vertices = randomPoints;
 
@@ -157,19 +158,31 @@ function createParticles(geo){
 	}
 
 
-	var particleMaterial = new THREE.PointsMaterial( { 
-		size: size,
-		
-		//blending: THREE.AdditiveBlending,
-		transparent: true
-   } );
-	particleMaterial.vertexColors = true;
-	var particles = new THREE.Points(particleGeometry, particleMaterial );
+	var dataColor = new Float32Array( SIZE*SIZE * 4 );
 
-	particles.position.z = -300;
+	for ( var i = 0; i < SIZE*SIZE; i ++ ) {
 
 
-	particles.sortParticles = true;
-	object = particles;
-	scene.add( particles );
+
+	    dataColor[ i * 4 ]     = randomPoints[i].x;
+	    dataColor[ i * 4 + 1 ] = randomPoints[i].y;
+	    dataColor[ i * 4 + 2 ] = randomPoints[i].z;
+
+	}
+
+
+	posText = new THREE.DataTexture( dataColor, SIZE, SIZE, THREE.RGBAFormat, THREE.FloatType, );
+	posText.needsUpdate = true;
+
+			material = new THREE.MeshBasicMaterial({map: posText})
+         	
+
+            mesh = new THREE.Mesh(plane, material)
+            imgscene = new THREE.Scene()
+
+            imgscene.add(mesh);
+            
+            renderer.render(imgscene,cameraOrtho, texture);
+        
+
 }

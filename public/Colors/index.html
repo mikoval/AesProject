@@ -33,7 +33,7 @@ Object: <select id='obj-dd'>
 <option value="statue">statue</option>
 </select><br>
 Size: <input type="range" min="1" max="10" value="4" class="slider" id="size" style = 'width: 50%'> <br>
-Density: <input type="range" min="3" max="10" value="50" class="slider" id="num" style = 'width: 50%'> <br>
+Density: <input type="range" min="3" max="1000" value="50" class="slider" id="num" style = 'width: 50%'> <br>
 Color: <select id='color-dd'>
 <option value="random">Random</option>
 <option value="one">One</option>
@@ -62,6 +62,7 @@ Color 2 <input type="text" name="" id="disp-2-2"  class='jscolor'><br>
 <script src="shapes.js"></script>
 <script src="jscolor.min.js"></script>
 <script src="color.js"></script>
+<script src="ShaderLoader.js"></script>
 
 <script
   src="https://code.jquery.com/jquery-3.2.1.js"
@@ -76,21 +77,21 @@ $("#obj-dd").on("change", function(){
   reload();
 })
 $("#size").on("change", function(){
+  particalesMat.uniforms.size.value  = $(this).val();
   size = $(this).val();
-  reload();
 })
 $("#num").on("change", function(){
   numPoints = $(this).val();
-  numPoints =  Math.pow(numPoints, 5)  ;
-  console.log(numPoints)
-  reload();
+  SIZE  = numPoints;
+
+  initTextures()
 })
 $("#color-dd").on("change", function(){
   var val = $(this).val();
   if(val == "random"){
     $(".color-menu").hide();
     ramp = createRandomRamp();
-    reload();
+    initTextures();
   }
   if(val == "one"){
     $(".color-menu").hide();
@@ -107,12 +108,12 @@ $("#color-dd").on("change", function(){
 $("#generate-1").on("click", function(){
   var val = $("#disp-1-1").val();
   ramp = createRandomRampOne(val);
-  reload();
+  initTextures()
 })
 $("#generate-2").on("click", function(){
   var val1 = $("#disp-2-1").val();
   var val2 = $("#disp-2-2").val();
-  console.log(val2);
+
   ramp = createLABRamp(val1, val2, 24);
   for (var i = 0 ;i < ramp.length ; i++){
     ramp[i].r /= 255;
@@ -120,7 +121,7 @@ $("#generate-2").on("click", function(){
     ramp[i].b /= 255;
 
   }
-  reload();
+  initTextures();
 })
 
 </script>

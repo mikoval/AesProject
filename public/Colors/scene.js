@@ -164,6 +164,7 @@ function update () {
 		time = 0;
 		intMaterial.uniforms.start.value = intMaterial.uniforms.end.value;
 		var next =  Math.floor(Math.random() * textures.length);
+		console.log(next);
 		intMaterial.uniforms.end.value = textures[next];
 	}
 	intMaterial.uniforms.time.value = time;

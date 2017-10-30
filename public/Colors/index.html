@@ -1,0 +1,129 @@
+<html>
+<style>
+.controls{
+  width:200px;
+   height:200px; 
+   background-color:#FFFFFF; 
+   opacity: 0.7;
+   position: absolute;
+   text-align: center
+}
+.control-dd{
+  margin:auto;
+  width:160px;
+
+}
+.color-menu{
+  display:none;
+}
+body{margin:0px; padding:0px;}
+</style>
+<body>
+
+<div class="controls"">
+<h3>
+Controls
+</h3>
+Object: <select id='obj-dd'>
+<option value="sphere">sphere</option>
+<option value="cube">cube</option>
+<option value="torus">torus</option>
+<option value="bunny">bunny</option>
+<option value="monkey">monkey</option>
+<option value="statue">statue</option>
+</select><br>
+Size: <input type="range" min="1" max="10" value="4" class="slider" id="size" style = 'width: 50%'> <br>
+Density: <input type="range" min="3" max="10" value="50" class="slider" id="num" style = 'width: 50%'> <br>
+Color: <select id='color-dd'>
+<option value="random">Random</option>
+<option value="one">One</option>
+<option value="range">Color Range</option>
+</select><br>
+<div id = "choose-one-color" class = "color-menu">
+Color 1 <input type="text" name="" id="disp-1-1" class='jscolor'><br>
+<button id="generate-1">Generate Color</button>
+</div>
+<div id = "choose-two-color" class = "color-menu">
+Color 1 <input type="text" name="" id="disp-2-1"  class='jscolor'><br>
+Color 2 <input type="text" name="" id="disp-2-2"  class='jscolor'><br>
+<button id="generate-2">Generate Colors</button>
+</div>
+
+
+</div>
+  
+</body>
+
+
+<script src="three.js"></script>
+<script src="GeometryUtils.js"></script>
+<script src="OBJloader.js"></script>
+<script src="MTLloader.js"></script>
+<script src="shapes.js"></script>
+<script src="jscolor.min.js"></script>
+<script src="color.js"></script>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+<script src="scene.js"></script>
+
+
+<script>
+$("#obj-dd").on("change", function(){
+  obj = $(this).val();
+  reload();
+})
+$("#size").on("change", function(){
+  size = $(this).val();
+  reload();
+})
+$("#num").on("change", function(){
+  numPoints = $(this).val();
+  numPoints =  Math.pow(numPoints, 5)  ;
+  console.log(numPoints)
+  reload();
+})
+$("#color-dd").on("change", function(){
+  var val = $(this).val();
+  if(val == "random"){
+    $(".color-menu").hide();
+    ramp = createRandomRamp();
+    reload();
+  }
+  if(val == "one"){
+    $(".color-menu").hide();
+    $("#choose-one-color").show();
+  }
+  if(val == "range"){
+    $(".color-menu").hide();
+    $("#choose-two-color").show();
+  }
+
+  
+
+})
+$("#generate-1").on("click", function(){
+  var val = $("#disp-1-1").val();
+  ramp = createRandomRampOne(val);
+  reload();
+})
+$("#generate-2").on("click", function(){
+  var val1 = $("#disp-2-1").val();
+  var val2 = $("#disp-2-2").val();
+  console.log(val2);
+  ramp = createLABRamp(val1, val2, 24);
+  for (var i = 0 ;i < ramp.length ; i++){
+    ramp[i].r /= 255;
+    ramp[i].g /= 255;
+    ramp[i].b /= 255;
+
+  }
+  reload();
+})
+
+</script>
+
+</body>
+</html>

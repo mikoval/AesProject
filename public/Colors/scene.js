@@ -13,7 +13,7 @@ function initScene(){
 	numPoints = SIZE*SIZE;
 	ramp = createRandomRamp();
 	time = 0;
-	dt = 0.01;
+	dt = 0.003;
 
 	// Get the DOM element to attach to
 

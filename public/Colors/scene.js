@@ -15,6 +15,8 @@ function initScene(){
 	ramp = createRandomRamp();
 	time = 0;
 	dt = 0.003;
+	random = true;
+	start = undefined;
 
 	// Get the DOM element to attach to
 
@@ -47,6 +49,7 @@ function initScene(){
 	requestAnimationFrame(update);
 }
 function initTextures(){
+	time = 0;
 	scene = new THREE.Scene();
 	plane = new THREE.PlaneBufferGeometry( SIZE, SIZE );
 
@@ -57,6 +60,7 @@ function initTextures(){
 	scene.add(camera);
 	particlePositions = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	particlePositions2 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	tmp = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 
 	sphereTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	cubeTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
@@ -78,6 +82,9 @@ function initTextures(){
 	textures.push(monkeyTexture);
 	textures.push(statueTexture);
 	console.log(opacity);
+	if(start == undefined){
+		start = cubeTexture;
+	}
 
 	var geo = createLookupGeometry( SIZE );
 
@@ -93,16 +100,16 @@ function initTextures(){
         fragmentShader: shaders.fs.lookup,
         blending: THREE.AdditiveBlending,
   		transparent: true,
-  		
+
 
       });
-      
+      	
         intScene = new THREE.Scene();
 
         intMaterial = new THREE.ShaderMaterial( {
             uniforms: {
              start: { type: "t", value: sphereTexture },
-             end: { type: "t", value: cubeTexture },
+             end: { type: "t", value: start },
              time : {type: 'f',value:0},
              res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
 
@@ -166,12 +173,15 @@ function update () {
 	
 
 
-	if(time > 2){
-		time = 0;
-		intMaterial.uniforms.start.value = intMaterial.uniforms.end.value;
+	if(time > 2 && random== true){
+		
 		var next =  Math.floor(Math.random() * textures.length);
 		console.log(next);
-		intMaterial.uniforms.end.value = textures[next];
+
+
+		setInt(textures[next]);
+
+	    
 	}
 	intMaterial.uniforms.time.value = time;
 
@@ -196,6 +206,24 @@ function update () {
 
   // Schedule the next frame.
   requestAnimationFrame(update);
+}
+function setInt(text){
+	time = 0;
+	material = new THREE.MeshBasicMaterial({map: particlePositions})
+         	
+
+    mesh = new THREE.Mesh(plane, material)
+    imgscene = new THREE.Scene()
+
+    imgscene.add(mesh);
+    
+    renderer.render(imgscene,cameraOrtho, tmp);
+
+
+	intMaterial.uniforms.start.value =tmp;
+
+
+	intMaterial.uniforms.end.value = text;
 }
 function createLookupGeometry( size ){        
         

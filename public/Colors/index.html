@@ -25,6 +25,7 @@ body{margin:0px; padding:0px;}
 Controls
 </h3>
 Object: <select id='obj-dd'>
+<option value="random">random</option>
 <option value="sphere">sphere</option>
 <option value="cube">cube</option>
 <option value="torus">torus</option>
@@ -74,8 +75,40 @@ Opacity: <input type="range" min="1" max="10" value="3" class="slider" id="opaci
 
 <script>
 $("#obj-dd").on("change", function(){
+
   obj = $(this).val();
-  reload();
+  if(obj == "random"){random = true;} 
+  else if (obj == "sphere"){
+    random = false;
+    start = sphereTexture;
+    setInt(sphereTexture);
+  }
+  else if (obj == "cube"){
+    random = false;
+    start = cubeTexture
+    setInt(cubeTexture);
+  }
+  else if (obj == "torus"){
+    random = false;
+    start = torusTexture
+    setInt(torusTexture);
+  }
+  else if (obj == "bunny"){
+    random = false;
+    start = bunnyTexture
+    setInt(bunnyTexture);
+  }
+  else if (obj == "monkey"){
+    random = false;
+    start = monkeyTexture
+    setInt(monkeyTexture);
+  }
+  else if (obj == "statue"){
+    random = false;
+    start = statueTexture
+    setInt(statueTexture);
+  }
+ 
 })
 $("#size").on("change", function(){
   particalesMat.uniforms.size.value  = $(this).val();

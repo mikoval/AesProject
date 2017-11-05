@@ -49,7 +49,7 @@ function initScene(){
 	requestAnimationFrame(update);
 }
 function initTextures(){
-	time = 5;
+	time = 0;
 	scene = new THREE.Scene();
 	plane = new THREE.PlaneBufferGeometry( SIZE, SIZE );
 

@@ -1,6 +1,6 @@
 function initScene(){
-	WIDTH = 400;
-	HEIGHT = 300;
+	WIDTH = 800;
+	HEIGHT = 600;
 
 	// Set some camera attributes.
 	const VIEW_ANGLE = 45;
@@ -49,7 +49,7 @@ function initScene(){
 	requestAnimationFrame(update);
 }
 function initTextures(){
-	time = 0;
+	time = 5;
 	scene = new THREE.Scene();
 	plane = new THREE.PlaneBufferGeometry( SIZE, SIZE );
 
@@ -60,20 +60,32 @@ function initTextures(){
 	scene.add(camera);
 	particlePositions = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	particlePositions2 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	particlePositions3 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	particlePositions4 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	tmp = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 
 	sphereTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	cubeTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	randomTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	torusTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	bunnyTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	monkeyTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+
+	heartTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	statueTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	textTexture1 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	textTexture2 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	emptyTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+
 	createSphere();
+	createRandom();
 	createCube();
 	createTorus();
+	createHeart();
 	createBunny();
 	createMonkey();
 	createStatue();
+
 	textures = [];
 	textures.push(sphereTexture);
 	textures.push(cubeTexture);
@@ -81,27 +93,37 @@ function initTextures(){
 	textures.push(bunnyTexture); 
 	textures.push(monkeyTexture);
 	textures.push(statueTexture);
-	console.log(opacity);
-	if(start == undefined){
-		start = cubeTexture;
-	}
+
+	
 
 	var geo = createLookupGeometry( SIZE );
 
      
-      particalesMat = new THREE.ShaderMaterial({
+      particalesMat1 = new THREE.ShaderMaterial({
         uniforms: {
           t_pos: { type: "t", value: sphereTexture },
           res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
           size: {type:"f", value: size},
           opacity: {type:"f", value: opacity},
         },
-        vertexShader: shaders.vs.lookup,
-        fragmentShader: shaders.fs.lookup,
+        vertexShader: shaders.vs.storylkp,
+        fragmentShader: shaders.fs.storylkp,
         blending: THREE.AdditiveBlending,
   		transparent: true,
 
 
+      });
+      particalesMat2 = new THREE.ShaderMaterial({
+        uniforms: {
+          t_pos: { type: "t", value: sphereTexture },
+          res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+          size: {type:"f", value: size},
+          opacity: {type:"f", value: opacity},
+        },
+        vertexShader: shaders.vs.storylkp,
+        fragmentShader: shaders.fs.storylkp,
+        blending: THREE.AdditiveBlending,
+  		transparent: true,
       });
       	
         intScene = new THREE.Scene();
@@ -109,8 +131,9 @@ function initTextures(){
         intMaterial = new THREE.ShaderMaterial( {
             uniforms: {
              start: { type: "t", value: sphereTexture },
-             end: { type: "t", value: start },
+             end: { type: "t", value:  sphereTexture },
              time : {type: 'f',value:0},
+             color : {type: 'f',value:0},
              res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
 
             },
@@ -121,13 +144,72 @@ function initTextures(){
 
         intScene.add(intObject);
       
+      	fallRandScene = new THREE.Scene();
 
-      particles = new THREE.Points( geo , particalesMat );
-      particles.position.z = -300;
-      object = particles;
+        fallRandMaterial = new THREE.ShaderMaterial( {
+            uniforms: {
+             start: { type: "t", value: sphereTexture },
+             time : {type: 'f',value:0},
+             color : {type: 'f',value:0},
+             res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+
+            },
+           
+            fragmentShader: shaders.fs.fallRand,
+        } );
+        fallRandObject = new THREE.Mesh( plane, fallRandMaterial );
+
+        fallRandScene.add(fallRandObject);
+
+        spiralUpScene = new THREE.Scene();
+
+        spiralUpMaterial = new THREE.ShaderMaterial( {
+            uniforms: {
+             start: { type: "t", value: sphereTexture },
+             end: { type: "t", value:  sphereTexture },
+             time : {type: 'f',value:0},
+             color : {type: 'f',value:0},
+             offset : {type: 'f',value:0},
+             res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+
+            },
+           
+            fragmentShader: shaders.fs.spiralUp,
+        } );
+        spiralUpObject = new THREE.Mesh( plane, spiralUpMaterial );
+
+        spiralUpScene.add(spiralUpObject);
+
+        logSpiralScene = new THREE.Scene();
+
+        logSpiralMaterial = new THREE.ShaderMaterial( {
+            uniforms: {
+             time : {type: 'f',value:0},
+             color : {type: 'f',value:0},
+             offset : {type: 'f',value:0},
+             res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+
+            },
+           
+            fragmentShader: shaders.fs.logSpiral,
+        } );
+        logSpiralObject = new THREE.Mesh( plane, logSpiralMaterial );
+
+        logSpiralScene.add(logSpiralObject);
+      
+
+      particles1 = new THREE.Points( geo , particalesMat1 );
+      particles2 = new THREE.Points( geo , particalesMat2 );
+      particles1.position.z = -300;
+      particles1.position.y =30;
+      particles2.position.z = -300;
+      particles2.position.y =-30;
+      object1 = particles1;
+      object2 = particles2;
      // particles.frustumCulled = false;
 
-      scene.add( particles );
+      scene.add( particles1 );
+      scene.add( particles2 );
 
      reload();
 
@@ -169,39 +251,12 @@ var object = undefined;
 function update () {
 
 	time += dt;
-	// Draw!
+
+	story(time);
+
 	
-
-	if(time > 2 && random== true){
-		
-		var next =  Math.floor(Math.random() * textures.length);
-		console.log(next);
-
-
-		setInt(textures[next]);
-
-	    
-	}
-	intMaterial.uniforms.time.value = time;
-
-	renderer.render(intScene, cameraOrtho, particlePositions2);
-
-        var t = particlePositions;
-        particlePositions = particlePositions2;
-        particlePositions2 = t;
-    
-	particalesMat.uniforms.t_pos.value = particlePositions;
-	//renderer.render(intScene, cameraOrtho);
-	renderer.render(scene, camera);
-
-	var change = Math.random();
-	if(change < 0.01 || axis == undefined){
-	axis = new THREE.Vector3(Math.random() - 0.5,Math.random()-0.5,Math.random()-0.5);
-	}
-	if(object != undefined){
-	  	rotateAroundWorldAxis(object, axis, Math.PI / 180);
   	  	
-  }
+  
 
   // Schedule the next frame.
   requestAnimationFrame(update);
@@ -261,17 +316,33 @@ function createLookupGeometry( size ){
  }
 
 
-var shaders = new ShaderLoader( './shaders' );
+var shaders = new ShaderLoader( './storyshaders' );
+var fontLoader = new THREE.FontLoader();
 
 
 
-shaders.load( 'vs-lookupW'  , 'lookup' , 'vertex'     );
-shaders.load( 'fs-lookupW'  , 'lookup' , 'fragment'   );
+shaders.load( 'vs-storylkp'  , 'storylkp' , 'vertex'     );
+shaders.load( 'fs-storylkp'  , 'storylkp' , 'fragment'   );
 shaders.load( 'fs-int'  , 'int' , 'fragment'   );
+shaders.load( 'fs-fallRand'  , 'fallRand' , 'fragment'   );
+shaders.load( 'fs-spiralUp'  , 'spiralUp' , 'fragment'   );
+shaders.load( 'fs-logSpiral'  , 'logSpiral' , 'fragment'   );
 
 shaders.shaderSetLoaded = function(){
 
 	initScene();
+	fontLoader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+    	createText(font);
+    
+	  
+
+	  
+
+
+
+	} );
+
 
 }
 

@@ -22,6 +22,26 @@ function createSphere(){
 
 
 }
+function createRandom(){
+	//rebuildScene();
+	
+
+
+
+	// Create a new mesh with
+	// sphere geometry - we will cover
+	// the sphereMaterial next!
+	var plane =  new THREE.PlaneGeometry( WIDTH/2, HEIGHT/2 );
+
+
+
+
+	createParticles(plane, randomTexture);
+
+
+
+}
+
 function createCube(){
 	//rebuildScene();
 	
@@ -59,6 +79,33 @@ function createTorus(){
 
 	
 }
+
+function createText(font){
+	var textOptions = {
+	  size: 14,
+	  height: 3,
+	  weight: 'normal',
+	  font: font,
+	  style: 'normal',
+
+	  curveSegments: 12,
+	  steps: 3
+	}
+
+	var text1 = new THREE.TextGeometry( "Computational Aesthetics", textOptions);
+	
+
+	createParticles(text1, textTexture1);
+
+	var text2 = new THREE.TextGeometry( "By Mike Koval", textOptions);
+	
+
+	createParticles(text2, textTexture2);
+
+
+}
+
+
 function createBunny(){
 	
 		var loader = new THREE.OBJLoader();
@@ -79,6 +126,33 @@ function createBunny(){
 				}
 				
 				createParticles(geometry, bunnyTexture);
+			}
+		);
+}
+function createHeart(){
+	
+		var loader = new THREE.OBJLoader();
+
+		// load a resource
+		loader.load(
+			// resource URL
+			'Heart.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				
+				var geometry = new THREE.Geometry().fromBufferGeometry( object.children[0].geometry );
+
+				for(var i = 0; i < geometry.vertices.length; i++){
+					geometry.vertices[i].y -= 150;
+
+					geometry.vertices[i].y /= 2;
+					geometry.vertices[i].x /= 2;
+					
+					geometry.vertices[i].z /= 2;
+				}
+				
+
+				createParticles(geometry, heartTexture);
 			}
 		);
 }
@@ -156,6 +230,12 @@ function createParticles(geo, texture){
 		b = ramp[c].b;
 		particleGeometry.colors.push(new THREE.Color(r, g, b))
 	}
+	var avgX = 0;
+	for ( var i = 0; i < SIZE*SIZE; i ++ ) {
+		avgX  += randomPoints[i].x;
+	}
+	avgX /= SIZE*SIZE;
+	
 
 
 	var dataColor = new Float32Array( SIZE*SIZE * 4 );
@@ -164,9 +244,10 @@ function createParticles(geo, texture){
 
 
 
-	    dataColor[ i * 4 ]     = randomPoints[i].x;
+	    dataColor[ i * 4 ]     = randomPoints[i].x - avgX;
 	    dataColor[ i * 4 + 1 ] = randomPoints[i].y;
 	    dataColor[ i * 4 + 2 ] = randomPoints[i].z;
+
 
 	}
 
@@ -186,3 +267,4 @@ function createParticles(geo, texture){
         
 
 }
+

@@ -51,6 +51,11 @@ Color 2 <input type="text" name="" id="disp-2-2"  class='jscolor'><br>
 
 </div>
 Opacity: <input type="range" min="1" max="10" value="3" class="slider" id="opacity" style = 'width: 50%'> <br>
+Blending: <select id='blend-dd'>
+<option value="add">Additive</option>
+<option value="none">No Blending</option>
+
+</select> <br>
 
 </div>
   
@@ -142,6 +147,15 @@ $("#color-dd").on("change", function(){
 
   
 
+})
+$("#blend-dd").on("change", function(){
+  var val = $(this).val();
+  if(val =="add"){
+    particalesMat.blending = THREE.AdditiveBlending
+  }
+  if(val == "none"){
+    particalesMat.blending = THREE.NoBlending
+  }
 })
 $("#generate-1").on("click", function(){
   var val = $("#disp-1-1").val();

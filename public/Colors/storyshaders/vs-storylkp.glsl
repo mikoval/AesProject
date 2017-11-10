@@ -33,6 +33,11 @@ void main(){
   if(pos.w == 3.0){
     color = vec3(0.4, 0.3, 0.0);
   }
+
+  if(pos.w == 4.0){
+    color = vec3(0.3, 0.9, 0.3);
+  }
+  
   
   	
   

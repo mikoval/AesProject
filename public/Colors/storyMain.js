@@ -71,6 +71,11 @@ function initTextures(){
 	particlePositions2 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	particlePositions3 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	particlePositions4 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+
+	particlePositions5 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	particlePositions6 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	particlePositions7 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	particlePositions8 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	tmp = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 
 	sphereTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
@@ -122,7 +127,7 @@ function initTextures(){
 	var geo = createLookupGeometry( SIZE );
 
      
-      particalesMat1 = new THREE.ShaderMaterial({
+      particlesMat1 = new THREE.ShaderMaterial({
         uniforms: {
           t_pos: { type: "t", value: sphereTexture },
           res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
@@ -137,7 +142,31 @@ function initTextures(){
 
 
       });
-      particalesMat2 = new THREE.ShaderMaterial({
+      particlesMat2 = new THREE.ShaderMaterial({
+        uniforms: {
+          t_pos: { type: "t", value: sphereTexture },
+          res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+          size: {type:"f", value: size},
+          opacity: {type:"f", value: opacity},
+        },
+        vertexShader: shaders.vs.storylkp,
+        fragmentShader: shaders.fs.storylkp,
+        blending: THREE.AdditiveBlending,
+  		transparent: true,
+      });
+      particlesMat3 = new THREE.ShaderMaterial({
+        uniforms: {
+          t_pos: { type: "t", value: sphereTexture },
+          res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+          size: {type:"f", value: size},
+          opacity: {type:"f", value: opacity},
+        },
+        vertexShader: shaders.vs.storylkp,
+        fragmentShader: shaders.fs.storylkp,
+        blending: THREE.AdditiveBlending,
+  		transparent: true,
+      });
+      particlesMat4 = new THREE.ShaderMaterial({
         uniforms: {
           t_pos: { type: "t", value: sphereTexture },
           res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
@@ -244,18 +273,26 @@ function initTextures(){
 
       
 
-      particles1 = new THREE.Points( geo , particalesMat1 );
-      particles2 = new THREE.Points( geo , particalesMat2 );
+      particles1 = new THREE.Points( geo , particlesMat1 );
+      particles2 = new THREE.Points( geo , particlesMat2 );
+      particles3 = new THREE.Points( geo , particlesMat3 );
+      particles4 = new THREE.Points( geo , particlesMat4 );
       particles1.position.z = -300;
       particles1.position.y =30;
       particles2.position.z = -300;
       particles2.position.y =-30;
+      particles3.position.z = -300;
+      particles4.position.z = -300;
       object1 = particles1;
       object2 = particles2;
+      object3 = particles3;
+      object4 = particles4;
      // particles.frustumCulled = false;
 
       scene.add( particles1 );
       scene.add( particles2 );
+      scene.add( particles3 );
+      scene.add( particles4 );
 
      reload();
 

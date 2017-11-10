@@ -15,7 +15,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 	    
-		particalesMat1.uniforms.t_pos.value = particlePositions;
+		particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 		//second set of particles
@@ -30,12 +30,14 @@ function story(time){
 	    particlePosition3 = particlePositions4;
 	    particlePositions4 = t;
 	    
-		particalesMat2.uniforms.t_pos.value = particlePositions3;
+		particlesMat2.uniforms.t_pos.value = particlePositions3;
 
-		particalesMat1.uniforms.size.value = 2.0;
-		particalesMat2.uniforms.size.value = 2.0;
-		particalesMat1.transparent = true;
-		particalesMat2.transparent = true;
+		particlesMat1.uniforms.size.value = 2.0;
+		particlesMat2.uniforms.size.value = 2.0;
+		particlesMat1.transparent = true;
+		particlesMat2.transparent = true;
+		object3.visible = false;
+		object4.visible = false;
 		
 
 
@@ -60,9 +62,9 @@ function story(time){
 		var t = particlePositions;
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
-	    particalesMat1.uniforms.t.value = inputTime/2.0;
+	    particlesMat1.uniforms.t.value = inputTime/2.0;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 
 	    //second
 	    fallRandMaterial.uniforms.start.value = textTexture2;
@@ -72,7 +74,7 @@ function story(time){
 	    particlePositions3 = particlePositions4;
 	    particlePositions4 = t;
 
-	    particalesMat2.uniforms.t_pos.value = particlePositions3;
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
 
 
 	    if(time < 2.0){
@@ -110,7 +112,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 	    
-		particalesMat1.uniforms.t_pos.value = particlePositions;
+		particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 	
@@ -130,7 +132,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 	    
-		particalesMat1.uniforms.t_pos.value = particlePositions;
+		particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 	
@@ -162,7 +164,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 	
@@ -182,7 +184,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 	
@@ -202,7 +204,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 	
@@ -223,8 +225,8 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
-	    particalesMat1.uniforms.t.value = inputTime;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t.value = inputTime;
 
 	    //second
 	    intMaterial.uniforms.start.value = emptyTexture;
@@ -237,7 +239,7 @@ function story(time){
 	    particlePositions3 = particlePositions4;
 	    particlePositions4 = t;
 
-	    particalesMat2.uniforms.t_pos.value = particlePositions3;
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
 
 
 	    if(time < 6.2){
@@ -279,8 +281,8 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
-	    particalesMat1.uniforms.t.value = 1.0;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t.value = 1.0;
 
 
 	    //second
@@ -293,7 +295,7 @@ function story(time){
 	    particlePositions3 = particlePositions4;
 	    particlePositions4 = t;
 
-	    particalesMat2.uniforms.t_pos.value = particlePositions3;
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
 
 	    axis = new THREE.Vector3(0,1,0);
 		rotateAroundWorldAxis(object1, axis, 2 * Math.PI   * 1*  dt ) ;
@@ -349,7 +351,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 	
 
 	    //second
@@ -396,7 +398,7 @@ function story(time){
 	    particlePositions3 = particlePositions4;
 	    particlePositions4 = t;
 
-	    particalesMat2.uniforms.t_pos.value = particlePositions3;
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
 
 
 	    object1.position.x = 50;
@@ -439,7 +441,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 	  
 
 	    //second
@@ -452,7 +454,7 @@ function story(time){
 	    particlePositions3 = particlePositions4;
 	    particlePositions4 = t;
 
-	    particalesMat2.uniforms.t_pos.value = particlePositions3;
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
 
 		axis = new THREE.Vector3(0,1,0);
 		rotateAroundWorldAxis(object1, axis, 2 * Math.PI   * 4 *  dt ) ;
@@ -462,11 +464,11 @@ function story(time){
 
 	}
 
-	else if(time < 14.0 && time > 12.0){
-		var inputTime = (time-12) * 0.5;
+	else if(time < 12.5 && time > 12.0){
+		var inputTime = (time-12) * 2.0;
 
 		
-		logSpiralMaterial.uniforms.color.value = 2;
+		logSpiralMaterial.uniforms.color.value = 1;
 
 		logSpiralMaterial.uniforms.time.value = inputTime;
 		logSpiralMaterial.uniforms.offset.value = 0.0;
@@ -476,12 +478,12 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 	    
-		particalesMat1.uniforms.t_pos.value = particlePositions;
+		particlesMat1.uniforms.t_pos.value = particlePositions;
 
 
 		//second set of particles
 
-		logSpiralMaterial.uniforms.color.value = 1;
+		logSpiralMaterial.uniforms.color.value = 2
 		logSpiralMaterial.uniforms.time.value = inputTime;
 		logSpiralMaterial.uniforms.offset.value = 1.0;
 		renderer.render(logSpiralScene, cameraOrtho, particlePositions4);
@@ -490,9 +492,9 @@ function story(time){
 	    particlePosition3 = particlePositions4;
 	    particlePositions4 = t;
 	    
-		particalesMat2.uniforms.t_pos.value = particlePositions3;
-		particalesMat1.uniforms.size.value = 1.0;
-		particalesMat2.uniforms.size.value = 1.0;
+		particlesMat2.uniforms.t_pos.value = particlePositions3;
+		particlesMat1.uniforms.size.value = 1.0;
+		particlesMat2.uniforms.size.value = 1.0;
 
 		object1.rotation.x = 0;
 		object1.rotation.y = 0;
@@ -505,15 +507,15 @@ function story(time){
 	}
 	
 
-	else if(time < 14.5 && time > 14.0){
-		var inputTime = (time-14.0) * 2.0
+	if(time < 13.0 && time > 12.5){
+		var inputTime = (time-12.5)  * 2.0;
 
 		
 
 		//second
 	    intMaterial.uniforms.start.value = emptyTexture;
 	    intMaterial.uniforms.end.value =  robotTexture;
-	    intMaterial.uniforms.color.value = 1 ;
+	    intMaterial.uniforms.color.value = 2 ;
 	    intMaterial.uniforms.time.value = inputTime;
 	  
 
@@ -522,7 +524,7 @@ function story(time){
 	    particlePositions = particlePositions2;
 	    particlePositions2 = t;
 
-	    particalesMat1.uniforms.t_pos.value = particlePositions;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 	  
 
 	    //second
@@ -535,7 +537,7 @@ function story(time){
 	    particlePositions3 = particlePositions4;
 	    particlePositions4 = t;
 
-	    particalesMat2.uniforms.t_pos.value = particlePositions3;
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
 
 		axis = new THREE.Vector3(0,1,0);
 		rotateAroundWorldAxis(object1, axis, 2 * Math.PI   * 4 *  dt ) ;
@@ -546,15 +548,15 @@ function story(time){
 		object2.scale.y = 1.5 ;
 		object2.scale.z = 1.5 ;
 
-		particalesMat1.uniforms.size.value = 2.0;
-		particalesMat2.uniforms.size.value = 2.0;
+		particlesMat1.uniforms.size.value = 2.0;
+		particlesMat2.uniforms.size.value = 2.0;
 
 		
 
 	}
-	else if(time < 15.5 && time > 14.5){
+	else if(time < 14.0 && time > 13.0){
 
-		var inputTime = (time-14.5) * 1.0;
+		var inputTime = (time-13.0) * 1.0;
 
 		
 		object1.scale.x = 1 * (1 - inputTime) + 0.2 * (inputTime);
@@ -584,12 +586,125 @@ function story(time){
 
 
 	}
-	else if(time < 19 && time > 15.5){
+	else if(time < 23 && time > 15.0){
 		
 		axis = new THREE.Vector3(0,1,0);
 		object1.rotation.y += dt * 3.14 * 2 * 2;
 
 
+	}
+	if(time < 14.5 && time > 12.5){
+		var inputTime = (time-12.5) / 3.0 *  16.0;
+		axis = new THREE.Vector3(0,1,0);
+		object1.rotation.y += dt * 3.14 * 2 * 2;
+		
+
+		
+
+		//second
+	    bezierMaterial.uniforms.points.value = [
+	    	new THREE.Vector3(-299,0,0),
+	    	new THREE.Vector3(-100,50,0),
+	    	new THREE.Vector3(-50,50,0),
+	    	new THREE.Vector3(0,-50,0),
+
+	    	new THREE.Vector3(50,-150,0),
+	    	new THREE.Vector3(50,-30,0),
+	    	new THREE.Vector3(20,40,0),
+
+	    	new THREE.Vector3(-10,110,0),
+	    	new THREE.Vector3(90,80,0),
+	    	new THREE.Vector3(90,0,0),
+
+	    	new THREE.Vector3(90,-80,0),
+	    	new THREE.Vector3(120,-40,0),
+	    	new THREE.Vector3(100,0,0),
+
+	    	new THREE.Vector3(80,40,0),
+	    	new THREE.Vector3(20,-20,0),
+	    	new THREE.Vector3(0,0,0),
+
+	    	new THREE.Vector3(-20,20,0),
+	    	new THREE.Vector3(40,70,0),
+	    	new THREE.Vector3(80,0,0),
+
+	    	new THREE.Vector3(120,-70,0),
+	    	new THREE.Vector3(80,-150,0),
+	    	new THREE.Vector3(0,-300,0),
+
+	    ];
+
+
+	    bezierMaterial.uniforms.color.value = 1;
+	    bezierMaterial.uniforms.time.value = inputTime ;
+	    bezierMaterial.uniforms.end.value = humanTexture ;
+		renderer.render(bezierScene, cameraOrtho, particlePositions5);
+		var t = particlePositions5;
+	    particlePositions5 = particlePositions6;
+	    particlePositions6 = t;
+
+	    particlesMat3.uniforms.t_pos.value = particlePositions5;
+	    particlesMat4.uniforms.t_pos.value = emptyTexture;
+	    object3.visible = true;
+	    object4.visible = false;
+
+	    if(inputTime > 7){
+	    	object3.visible = false;
+	    }
+	    
+		
+
+
+
+
+	}
+	if(time < 15.0 && time > 14.0){
+		object3.visible = true;
+	    object4.visible = true;
+		var inputTime = (time-14) *3;
+
+		spiralUpMaterial.uniforms.time.value = inputTime;
+		spiralUpMaterial.uniforms.end.value = heartTexture;
+		spiralUpMaterial.uniforms.color.value = 1.0;
+		spiralUpMaterial.uniforms.offset.value = 0.0;
+		renderer.render(spiralUpScene, cameraOrtho, particlePositions6);
+		var t = particlePositions5;
+	    particlePositions5 = particlePositions6;
+	    particlePositions6 = t;
+
+
+	    particlesMat3.uniforms.t_pos.value = particlePositions5;
+
+
+	    spiralUpMaterial.uniforms.time.value = inputTime;
+		spiralUpMaterial.uniforms.end.value = cubeTexture;
+		spiralUpMaterial.uniforms.color.value = 4.0;
+		spiralUpMaterial.uniforms.offset.value = 1.0;
+		renderer.render(spiralUpScene, cameraOrtho, particlePositions8);
+		var t = particlePositions7;
+	    particlePositions7 = particlePositions8;
+	    particlePositions8 = t;
+
+
+	    particlesMat4.uniforms.t_pos.value = particlePositions7;
+
+
+
+	    axis = new THREE.Vector3(0,1,0);
+		rotateAroundWorldAxis(object3, axis, Math.PI / 180);
+		rotateAroundWorldAxis(object4, axis, Math.PI / 180);
+	
+	
+	  	
+
+	    particlesMat3.uniforms.size.value = 2.0;
+		particlesMat4.uniforms.size.value = 2.0;
+
+	}
+	if(time < 19.5 && time > 14.5){
+		 axis = new THREE.Vector3(0,1,0);
+		rotateAroundWorldAxis(object3, axis, Math.PI / 180);
+		rotateAroundWorldAxis(object4, axis, Math.PI / 180);
 	}
 
 

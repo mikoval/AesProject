@@ -340,7 +340,8 @@ function createThreePiece(){
 				// load a resource
 				loader.load(
 					// resource URL
-					'objs/Phone.obj',
+					'objs/Phone.obj',  
+					
 					// Function when resource is loaded
 					function ( object ) {
 						var tmpPhoneGeo = new THREE.Geometry().fromBufferGeometry( object.children[0].geometry );

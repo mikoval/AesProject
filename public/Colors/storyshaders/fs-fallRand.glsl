@@ -1,6 +1,7 @@
 varying float w;
 uniform float time;
 uniform sampler2D start; 
+uniform float color;
 uniform vec2 res; 
 
 $rand
@@ -19,6 +20,8 @@ void main(){
 		
 		pos.y = pos.y - 1000.0 * time2;
 	}
+	pos.w = color;
+
 	gl_FragColor = pos;
 	
   

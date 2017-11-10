@@ -1,3 +1,8 @@
+function startAnimation(){
+	var audio = new Audio('music/friend.mp3');
+	audio.play();
+	loaded = true;
+}
 function initScene(){
 	WIDTH = 800;
 	HEIGHT = 600;
@@ -7,7 +12,7 @@ function initScene(){
 	const ASPECT = WIDTH / HEIGHT;
 	const NEAR = 0.01;
 	const FAR = 100000;
-	size = 2;
+	size = 3;
 	opacity = 0.3;
 	SIZE = 100;
 	obj = "sphere";
@@ -17,6 +22,9 @@ function initScene(){
 	dt = 0.003;
 	random = true;
 	start = undefined;
+	loaded = false;
+
+	
 
 	// Get the DOM element to attach to
 
@@ -48,6 +56,7 @@ function initScene(){
 	
 	requestAnimationFrame(update);
 }
+
 function initTextures(){
 	time = 0;
 	scene = new THREE.Scene();
@@ -70,12 +79,21 @@ function initTextures(){
 	torusTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	bunnyTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	monkeyTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	threePieceTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+
+	robotTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	houseTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	giftTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	humanTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+	watchTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+
 
 	heartTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	statueTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	textTexture1 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	textTexture2 = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
 	emptyTexture = new THREE.WebGLRenderTarget( SIZE , SIZE, {minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter,type: THREE.FloatType, format: THREE.RGBAFormat});
+
 
 	createSphere();
 	createRandom();
@@ -85,7 +103,12 @@ function initTextures(){
 	createBunny();
 	createMonkey();
 	createStatue();
-
+	createThreePiece();
+	createRobot();
+	createHouse();
+	createGift();
+	createHuman();
+	createWatch();
 	textures = [];
 	textures.push(sphereTexture);
 	textures.push(cubeTexture);
@@ -104,6 +127,7 @@ function initTextures(){
           t_pos: { type: "t", value: sphereTexture },
           res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
           size: {type:"f", value: size},
+          t: {type:"f", value: 0},
           opacity: {type:"f", value: opacity},
         },
         vertexShader: shaders.vs.storylkp,
@@ -196,6 +220,28 @@ function initTextures(){
         logSpiralObject = new THREE.Mesh( plane, logSpiralMaterial );
 
         logSpiralScene.add(logSpiralObject);
+
+
+
+        bezierScene = new THREE.Scene();
+
+        bezierMaterial = new THREE.ShaderMaterial( {
+            uniforms: {
+             time : {type: 'f',value:0},
+             color : {type: 'f',value:0},
+             points : {type: 'vfv', value: null},
+             end: { type: "t", value: null },
+             res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+
+            },
+           
+            fragmentShader: shaders.fs.bezier,
+        } );
+        bezierObject = new THREE.Mesh( plane, bezierMaterial );
+
+        bezierScene.add(bezierObject);
+
+
       
 
       particles1 = new THREE.Points( geo , particalesMat1 );
@@ -248,11 +294,18 @@ function reload(){
 }
 var axis = undefined;
 var object = undefined;
+
+
 function update () {
 
-	time += dt;
 
-	story(time);
+
+	if(loaded){
+		time += dt;
+
+		story(time);
+	}
+	
 
 	
   	  	
@@ -327,6 +380,7 @@ shaders.load( 'fs-int'  , 'int' , 'fragment'   );
 shaders.load( 'fs-fallRand'  , 'fallRand' , 'fragment'   );
 shaders.load( 'fs-spiralUp'  , 'spiralUp' , 'fragment'   );
 shaders.load( 'fs-logSpiral'  , 'logSpiral' , 'fragment'   );
+shaders.load( 'fs-bezier'  , 'bezier' , 'fragment'   );
 
 shaders.shaderSetLoaded = function(){
 

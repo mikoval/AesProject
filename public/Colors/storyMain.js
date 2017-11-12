@@ -271,6 +271,26 @@ function initTextures(){
         bezierScene.add(bezierObject);
 
 
+        bezierSpiralScene = new THREE.Scene();
+
+        bezierSpiralMaterial = new THREE.ShaderMaterial( {
+            uniforms: {
+             time : {type: 'f',value:0},
+             color : {type: 'f',value:0},
+             points : {type: 'vfv', value: null},
+             start: { type: "t", value: null },
+             end: { type: "t", value: null },
+             res:{type:"v2", value: new THREE.Vector2(SIZE, SIZE)},
+             offset : {type: 'f',value:0},
+            },
+           
+            fragmentShader: shaders.fs.bezierSpiral,
+        } );
+        bezierSpiralObject = new THREE.Mesh( plane, bezierSpiralMaterial );
+
+        bezierSpiralScene.add(bezierSpiralObject);
+
+
       
 
       particles1 = new THREE.Points( geo , particlesMat1 );
@@ -418,6 +438,7 @@ shaders.load( 'fs-fallRand'  , 'fallRand' , 'fragment'   );
 shaders.load( 'fs-spiralUp'  , 'spiralUp' , 'fragment'   );
 shaders.load( 'fs-logSpiral'  , 'logSpiral' , 'fragment'   );
 shaders.load( 'fs-bezier'  , 'bezier' , 'fragment'   );
+shaders.load( 'fs-bezierSpiral'  , 'bezierSpiral' , 'fragment'   );
 
 shaders.shaderSetLoaded = function(){
 

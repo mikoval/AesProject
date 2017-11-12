@@ -22,8 +22,8 @@ void main(){
 	
 
 	vec3 axis = vec3(0.0, 0.0, 1.0);
-	if(timeP > rand(gl_FragCoord.xy * 2.0) / 2.0){
-		timeP = timeP -  rand(gl_FragCoord.xy * 2.0)/2.0;
+	if(timeP > rand(gl_FragCoord.xy * 2.0) / 1.0){
+		timeP = timeP -  rand(gl_FragCoord.xy * 2.0)/1.0;
 		float inputTime = 0.0;
 		float negInputTime = 0.0;
 
@@ -146,11 +146,11 @@ void main(){
 
 		
 
-		float xOffset = (rand(gl_FragCoord.xy * 3.0) - 0.5) * 5.0;
+		float xOffset = (rand(gl_FragCoord.xy * 3.0) - 0.5) * 7.0;
 
-		float yOffset = (rand(gl_FragCoord.xy * 4.0) - 0.5) * 5.0; 
+		float yOffset = (rand(gl_FragCoord.xy * 4.0) - 0.5) * 7.0; 
 
-		float zOffset =  (rand(gl_FragCoord.xy * 5.0) - 0.5) * 5.0;
+		float zOffset =  (rand(gl_FragCoord.xy * 5.0) - 0.5) * 7.0;
 
 		pos.x += xOffset;
 		pos.y += yOffset;
@@ -174,6 +174,8 @@ void main(){
 
 	}
 	pos.w = color;
+
+	
 	gl_FragColor = pos;
 	
 	

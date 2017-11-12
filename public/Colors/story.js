@@ -373,11 +373,11 @@ function story(time){
 	    	new THREE.Vector3(50,30,0),
 	    	new THREE.Vector3(-30,70,0),
 
-	    	new THREE.Vector3(-80,110,0),
+	    	new THREE.Vector3(-80,100,0),
 	    	new THREE.Vector3(-40,70,0),
 	    	new THREE.Vector3(0,0,0),
 
-	    	new THREE.Vector3(0,-70,0),
+	    	new THREE.Vector3(40,-70,0),
 	    	new THREE.Vector3(120,-70,0),
 	    	new THREE.Vector3(120,0,0),
 
@@ -416,7 +416,7 @@ function story(time){
 
 	    //object1.position.x = -100;
 
-	    if(time > 10.5){
+	    if(time > 11.0){
 	    	axis = new THREE.Vector3(0,1,0);
 			rotateAroundWorldAxis(object1, axis, 2 * Math.PI   * 4 *  dt ) ;
 			rotateAroundWorldAxis(object2, axis, -2 * Math.PI   * 4 *  dt ) ;
@@ -579,24 +579,18 @@ function story(time){
 		object2.position.y = 0 * (1-inputTime) + -100 * (inputTime);
 		
 
-		object1.rotation.y += dt * 3.14 * 2 * 2;
+		object1.rotation.y += dt * 3.14 * 4 * 2;
 
 
 
 
 
 	}
-	else if(time < 23 && time > 15.0){
-		
-		axis = new THREE.Vector3(0,1,0);
-		object1.rotation.y += dt * 3.14 * 2 * 2;
-
-
-	}
+	
 	if(time < 14.5 && time > 12.5){
-		var inputTime = (time-12.5) / 3.0 *  16.0;
-		axis = new THREE.Vector3(0,1,0);
-		object1.rotation.y += dt * 3.14 * 2 * 2;
+		var inputTime = (time-12.5) / 2.0 *  10.0;
+
+		
 		
 
 		
@@ -637,7 +631,7 @@ function story(time){
 
 	    bezierMaterial.uniforms.color.value = 1;
 	    bezierMaterial.uniforms.time.value = inputTime ;
-	    bezierMaterial.uniforms.end.value = humanTexture ;
+	    bezierMaterial.uniforms.end.value = emptyTexture ;
 		renderer.render(bezierScene, cameraOrtho, particlePositions5);
 		var t = particlePositions5;
 	    particlePositions5 = particlePositions6;
@@ -648,7 +642,7 @@ function story(time){
 	    object3.visible = true;
 	    object4.visible = false;
 
-	    if(inputTime > 7){
+	    if(inputTime > 7.5){
 	    	object3.visible = false;
 	    }
 	    
@@ -658,10 +652,10 @@ function story(time){
 
 
 	}
-	if(time < 15.0 && time > 14.0){
+	if(time < 15.5 && time > 14.5){
 		object3.visible = true;
 	    object4.visible = true;
-		var inputTime = (time-14) *3;
+		var inputTime = (time-14.5) *3;
 
 		spiralUpMaterial.uniforms.time.value = inputTime;
 		spiralUpMaterial.uniforms.end.value = heartTexture;
@@ -677,7 +671,7 @@ function story(time){
 
 
 	    spiralUpMaterial.uniforms.time.value = inputTime;
-		spiralUpMaterial.uniforms.end.value = cubeTexture;
+		spiralUpMaterial.uniforms.end.value = sphereTexture;
 		spiralUpMaterial.uniforms.color.value = 4.0;
 		spiralUpMaterial.uniforms.offset.value = 1.0;
 		renderer.render(spiralUpScene, cameraOrtho, particlePositions8);
@@ -701,10 +695,194 @@ function story(time){
 		particlesMat4.uniforms.size.value = 2.0;
 
 	}
-	if(time < 19.5 && time > 14.5){
-		 axis = new THREE.Vector3(0,1,0);
-		rotateAroundWorldAxis(object3, axis, Math.PI / 180);
-		rotateAroundWorldAxis(object4, axis, Math.PI / 180);
+	
+
+	if(time < 17.0 && time > 16.0){
+		 //second
+		 var inputTime = (time-16) * 2;
+	    fallRandMaterial.uniforms.start.value = sphereTexture;
+	    fallRandMaterial.uniforms.time.value = inputTime;
+	    fallRandMaterial.uniforms.color.value = 4.0;
+		renderer.render(fallRandScene, cameraOrtho, particlePositions7);
+		var t = particlePositions7;
+	    particlePositions7 = particlePositions8;
+	    particlePositions8 = t;
+
+
+
+	    particlesMat4.uniforms.t_pos.value = particlePositions7;
+
+
+	    fallRandMaterial.uniforms.start.value = cubeTexture;
+	    fallRandMaterial.uniforms.time.value = inputTime;
+	    fallRandMaterial.uniforms.color.value = 3 ;
+		renderer.render(fallRandScene, cameraOrtho, particlePositions3);
+		var t = particlePositions3;
+	    particlePositions3 = particlePositions4;
+	    particlePositions4 = t;
+
+
+	    particlesMat2.uniforms.t_pos.value = particlePositions3;
+
+
+	}
+	if(time < 18.0 && time > 17.0){
+		 //second
+		 var inputTime = (time-17) ;
+	    
+
+		
+		object1.scale.x = 1 * ( inputTime) + 0.2 * (1-inputTime);
+		object1.scale.y = 1 * (inputTime) + 0.2 * (1-inputTime);
+		object1.scale.z = 1 * ( inputTime) + 0.2 * (1 - inputTime);
+
+
+		
+
+
+		
+
+
+		object1.position.x = -50 * (inputTime) + -100 * (1-inputTime);
+		object1.position.y = 0 * (inputTime) + -100 * (1-inputTime);
+
+		object3.position.x = 50 * (inputTime) + 0 * (1-inputTime);
+	
+
+		object2.position.x = 0;
+		object2.position.y = 0 ;
+			
+
+
+
+
+		//second
+	    intMaterial.uniforms.start.value = heartTexture;
+	    intMaterial.uniforms.end.value =  humanTexture;
+	    intMaterial.uniforms.color.value = 1 ;
+	    intMaterial.uniforms.time.value = inputTime;
+	    
+	    renderer.render(intScene, cameraOrtho, particlePositions6);
+		var t = particlePositions5;
+	    particlePositions5 = particlePositions6;
+	    particlePositions6 = t;
+
+
+	}
+	
+	if(time < 19 && time > 14.0){
+		object1.rotation.y += dt * 3.14 *  4* 2;
+		
+
+	}
+	if(time > 13.5 && time < 14.0){
+		object3.rotation.z = 0;
+		object3.rotation.x = 0;
+		object3.rotation.y = 0;
+
+		object4.rotation.z = 0;
+		object4.rotation.x = 0;
+		object4.rotation.y = 0;
+
+
+		object1.rotation.z = 0;
+		object1.rotation.x = 0;
+		object1.rotation.y = 0;
+	}
+	if(time < 19 && time > 14.0){
+		axis = new THREE.Vector3(0,1,0);
+		rotateAroundWorldAxis(object3, axis, Math.PI  * 4  * dt);
+		rotateAroundWorldAxis(object4, axis, Math.PI  * 4  * dt);
+	
+
+		
+
+	}
+	
+
+	if(time < 22 && time > 19){
+		object3.rotation.z = 0;
+		object3.rotation.x = 0;
+		object3.rotation.y = 0;
+
+		object4.rotation.z = 0;
+		object4.rotation.x = 0;
+		object4.rotation.y = 0;
+
+
+		object1.rotation.z = 0;
+		object1.rotation.x = 0;
+		object1.rotation.y = 0;
+
+		var inputTime = (time-19) / 3 * 10 ;
+
+		if(inputTime <= 1.0){
+			object3.position.x = 0 * (inputTime) + 50 * (1-inputTime);
+			object1.position.x = 0 * (inputTime) - 50 * (1-inputTime);
+
+		}
+
+
+
+		//second
+	    bezierSpiralMaterial.uniforms.points.value = [
+	    	new THREE.Vector3(0,0,0),
+	    	new THREE.Vector3(30,50,0),
+	    	new THREE.Vector3(50,50,0),
+	    	new THREE.Vector3(50,0,0),
+
+	    	new THREE.Vector3(50,-50,0),
+	    	new THREE.Vector3(0,-80,0),
+	    	new THREE.Vector3(-50,-70,0),
+
+	    	new THREE.Vector3(-40,-60,0),
+	    	new THREE.Vector3(-80,-30,0),
+	    	new THREE.Vector3(-120,0,0),
+
+	    	new THREE.Vector3(-140,30,0),
+	    	new THREE.Vector3(-50,40,0),
+	    	new THREE.Vector3(0 ,30,0),
+
+	    	new THREE.Vector3(50,20,0),
+	    	new THREE.Vector3(20,-20,0),
+	    	new THREE.Vector3(0,-50,0),
+
+	    	new THREE.Vector3(-20,-80,0),
+	    	new THREE.Vector3(-60,-40,0),
+	    	new THREE.Vector3(-40,0,0),
+
+	    	new THREE.Vector3(-20,40,0),
+	    	new THREE.Vector3(20,30,0),
+	    	new THREE.Vector3(0,0,0),
+
+	    ];
+
+
+	    bezierSpiralMaterial.uniforms.color.value = 1;
+	    bezierSpiralMaterial.uniforms.offset.value = 0;
+	    bezierSpiralMaterial.uniforms.time.value = inputTime ;
+
+	    bezierSpiralMaterial.uniforms.start.value = humanTexture ;
+	    bezierSpiralMaterial.uniforms.end.value = emptyTexture ;
+
+		renderer.render(bezierSpiralScene, cameraOrtho, particlePositions5);
+		var t = particlePositions5;
+	    particlePositions5 = particlePositions6;
+	    particlePositions6 = t;
+	    particlesMat3.uniforms.t_pos.value = particlePositions5;
+
+
+	    bezierSpiralMaterial.uniforms.color.value = 2;
+	    bezierSpiralMaterial.uniforms.offset.value = 1;
+	    bezierSpiralMaterial.uniforms.time.value = inputTime ;
+	    bezierSpiralMaterial.uniforms.start.value = robotTexture ;
+	    bezierSpiralMaterial.uniforms.end.value = robotTexture ;
+
+		renderer.render(bezierSpiralScene, cameraOrtho, particlePositions);
+		var t = particlePositions;
+	    particlePositions = particlePositions2;
+	    particlePositions2 = t;
+	    particlesMat1.uniforms.t_pos.value = particlePositions;
 	}
 
 

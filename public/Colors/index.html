@@ -117,6 +117,8 @@ $("#generate").on("click", function(){
 		image: $("#img")[0].src,
 	}
 	var objStr = JSON.stringify(obj);
+
+	objStr = encodeURIComponent(objStr);
 	window.location = "game.html?data="+objStr;
 })
 

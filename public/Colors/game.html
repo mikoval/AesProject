@@ -115,6 +115,8 @@ function shuffle(array) {
 
 var str = getParameterByName("data", window.location);
 
+str = decodeURIComponent(str);
+
 var gameData = JSON.parse(str);
 
 

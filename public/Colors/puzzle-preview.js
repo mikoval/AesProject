@@ -153,24 +153,42 @@ function piece(x,y, width, height, vertices, ctx){
 
 			var x = this.left[i].x / (this.width/2); 
 			var y = this.left[i].y / (this.height/2); 
+			x = x.toFixed(2);
+			y = y.toFixed(2); 
+			x = parseFloat(x)
+			y = parseFloat(y)
 			verts.push( {x: x, y:y });
 		};
 		
 		for (var i = 0; i < this.bottom.length; i++){
 			var x = this.bottom[i].x / (this.width/2); 
 			var y = this.bottom[i].y / (this.height/2); 
+			x = x.toFixed(2);
+			y = y.toFixed(2); 
+			x = parseFloat(x)
+			y = parseFloat(y)
 			verts.push( {x: x, y:y });
 		};
 		for (var i = 0; i < this.right.length; i++){
 			var x = this.right[i].x / (this.width/2); 
 			var y = this.right[i].y / (this.height/2); 
+			x = x.toFixed(2);
+			y = y.toFixed(2); 
+			x = parseFloat(x)
+			y = parseFloat(y)
 			verts.push( {x: x, y:y });
 		}
 		for (var i = 0; i < this.top.length; i++){
 			var x = this.top[i].x / (this.width/2); 
 			var y = this.top[i].y / (this.height/2); 
+			x = x.toFixed(2);
+			y = y.toFixed(2); 
+
+			x = parseFloat(x)
+			y = parseFloat(y)
 			verts.push( {x: x, y:y });
 		}
+		console.log(verts);
 		return verts;
 	}
 	this.setRightEdge = function(edgeVerts){
